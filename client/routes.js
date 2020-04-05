@@ -4,13 +4,13 @@ import { createBrowserHistory } from 'history';
 
 import Layout from './containers/Layout';
 import AccountManagerContainer from './containers/AccountManagerContainer';
-import AddBookContainer from './containers/AddBookContainer';
-import MyBooksContainer from './containers/MyBooksContainer';
-import MyBookContainer from './containers/MyBookContainer';
+import AddNeedContainer from './containers/AddNeedContainer';
+import MyNeedsContainer from './containers/MyNeedsContainer';
+import MyNeedContainer from './containers/MyNeedContainer';
 import FindContainer from './containers/FindContainer';
-import BookDetailTobeRequested from './containers/BookDetailTobeRequested';
-import RequestsList from './containers/RequestsList';
-import RequestContainer from './containers/RequestContainer';
+import NeedDetailTobeCared from './containers/NeedDetailTobeCared';
+import CaresList from './containers/CaresList';
+import CareContainer from './containers/CareContainer';
 import ProfileContainer from './containers/ProfileContainer';
 import IntroContainer from './containers/IntroContainer';
 
@@ -21,15 +21,15 @@ export const renderRoutes = () => (
     <Switch>
       <Layout history={browserHistory}>
         <Route exact path="/" component={AccountManagerContainer} />
-        <Route exact path="/add" component={AddBookContainer} />
-        <Route exact path="/my-shelf" component={MyBooksContainer} />
-        <Route exact path="/my-book/:id" component={MyBookContainer} />
+        <Route exact path="/add" component={AddNeedContainer} />
+        <Route exact path="/myneeds" component={MyNeedsContainer} />
+        <Route exact path="/myneed/:id" component={MyNeedContainer} />
 
         <Route exact path="/discover" component={FindContainer} />
-        <Route exact path="/book/:id" component={BookDetailTobeRequested} />
+        <Route exact path="/need/:id" component={NeedDetailTobeCared} />
 
-        <Route exact path="/messages" component={RequestsList} />
-        <Route exact path="/request/:id" component={RequestContainer} />
+        <Route exact path="/messages" component={CaresList} />
+        <Route exact path="/care/:id" component={CareContainer} />
 
         <Route exact path="/profile" component={ProfileContainer} />
         <Route exact path="/intro" component={IntroContainer} />
