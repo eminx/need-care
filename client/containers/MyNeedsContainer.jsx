@@ -10,7 +10,7 @@ import {
   Flex,
   SearchBar,
   Button,
-  Picker
+  Picker,
 } from 'antd-mobile';
 import { IoMdAddCircle } from 'react-icons/io';
 
@@ -22,28 +22,28 @@ const sortByMethods = [
   'book title',
   'book author',
   'book language',
-  'request condition'
+  'request condition',
 ];
 
-class MyBooks extends Component {
+class MyNeeds extends Component {
   state = {
     sortBy: 'last added',
     filterValue: '',
     gotoAddBook: false,
-    gotoSingleBook: false
+    gotoSingleBook: false,
   };
 
-  viewBookInDetail = book => {
+  viewBookInDetail = (book) => {
     this.setState({ gotoSingleBook: book._id });
   };
 
-  handleSortByChange = value => {
+  handleSortByChange = (value) => {
     this.setState({
-      sortBy: value[0]
+      sortBy: value[0],
     });
   };
 
-  handleFilter = value => {
+  handleFilter = (value) => {
     this.setState({ filterValue: value });
   };
 
@@ -91,7 +91,7 @@ class MyBooks extends Component {
       return <ActivityIndicator toast text="Loading..." />;
     }
 
-    const filteredSortedBooks = sortedBooks.filter(book => {
+    const filteredSortedBooks = sortedBooks.filter((book) => {
       return (
         (book.b_title &&
           book.b_title.toLowerCase().indexOf(filterValue.toLowerCase()) !==
@@ -124,7 +124,7 @@ class MyBooks extends Component {
         <SearchBar
           placeholder="Filter"
           cancelText="Cancel"
-          onChange={value => this.handleFilter(value)}
+          onChange={(value) => this.handleFilter(value)}
           onClear={() => this.setState({ filterValue: '' })}
           style={{ touchAction: 'none' }}
         />
@@ -132,12 +132,15 @@ class MyBooks extends Component {
         <Picker
           title="Sort by"
           extra="change"
-          data={sortByMethods.map(method => ({ value: method, label: method }))}
+          data={sortByMethods.map((method) => ({
+            value: method,
+            label: method,
+          }))}
           cols={1}
           okText="Confirm"
           dismissText="Cancel"
           value={[sortBy]}
-          onOk={value => this.handleSortByChange(value)}
+          onOk={(value) => this.handleSortByChange(value)}
         >
           <Flex justify="center">
             <Anchor label="sorted by" style={{ marginTop: 12 }}>
@@ -150,7 +153,7 @@ class MyBooks extends Component {
 
         <List style={{ marginBottom: 80 }}>
           {filteredSortedBooks &&
-            filteredSortedBooks.map(book => (
+            filteredSortedBooks.map((book) => (
               <ListItem
                 key={book._id}
                 align="top"
@@ -170,7 +173,7 @@ class MyBooks extends Component {
   }
 }
 
-export default MyBooksContainer = withTracker(props => {
+export default MyNeedsContainer = withTracker((props) => {
   const currentUser = Meteor.user();
   Meteor.subscribe('myBooks');
   const myBooks =
@@ -178,9 +181,9 @@ export default MyBooksContainer = withTracker(props => {
 
   return {
     currentUser,
-    myBooks
+    myBooks,
   };
-})(MyBooks);
+})(MyNeeds);
 
 const Anchor = ({ label, children, ...otherProps }) => (
   <span {...otherProps}>
@@ -190,7 +193,7 @@ const Anchor = ({ label, children, ...otherProps }) => (
       href="#"
       style={{
         color: '#108ee9',
-        borderBottom: '1px solid #108ee9'
+        borderBottom: '1px solid #108ee9',
       }}
     >
       {children}

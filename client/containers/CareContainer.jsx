@@ -15,11 +15,11 @@ import {
   Steps,
   WingBlank,
   WhiteSpace,
-  Accordion
+  Accordion,
 } from 'antd-mobile';
 import { IoMdSend } from 'react-icons/io';
 
-import { Requests } from '../../imports/api/collections';
+import { Cares } from '../../imports/api/collections';
 import { ChatteryWindow } from '../reusables/chattery/ChatteryWindow';
 import { successDialog, errorDialog, notificationsCounter } from '../functions';
 
@@ -29,30 +29,30 @@ const FlexItem = Flex.Item;
 const steps = [
   {
     title: 'Accepted',
-    description: 'Request is accepted'
+    description: 'Request is accepted',
   },
   {
     title: 'Handed',
-    description: 'Borrower received the book to read'
+    description: 'Borrower received the book to read',
   },
   {
     title: 'Returned',
-    description: 'Borrower has returned the book to the owner'
-  }
+    description: 'Borrower has returned the book to the owner',
+  },
 ].map((step, index) => (
   <Step key={step.title} title={step.title} description={step.description} />
 ));
 
-const myImg = src => <img src={src} alt="" width={48} height={66} />;
+const myImg = (src) => <img src={src} alt="" width={48} height={66} />;
 
 class Request extends Component {
   state = {
     messageInput: '',
     typingMessage: null,
-    openTab: 0
+    openTab: 0,
   };
 
-  sendMessage = event => {
+  sendMessage = (event) => {
     event && event.preventDefault();
     const { request } = this.props;
     const messageInput = this.state.messageInput;
@@ -68,7 +68,7 @@ class Request extends Component {
     });
 
     this.setState({
-      messageInput: ''
+      messageInput: '',
     });
   };
 
@@ -83,7 +83,7 @@ class Request extends Component {
       return null;
     }
 
-    return messages.messages.map(message => {
+    return messages.messages.map((message) => {
       if (message.from === currentUser._id) {
         message.isFromMe = true;
       }
@@ -92,7 +92,7 @@ class Request extends Component {
     });
   };
 
-  getMessageSender = message => {
+  getMessageSender = (message) => {
     const { currentUser, request } = this.props;
     if (currentUser._id === message.from) {
       return 'me';
@@ -192,13 +192,13 @@ class Request extends Component {
 
     return [
       { title: <Badge dot={dottedStatus}>Status</Badge> },
-      { title: <Badge text={notificationsCount}>Messages</Badge> }
+      { title: <Badge text={notificationsCount}>Messages</Badge> },
     ];
   };
 
   getNotificationsCount = () => {
     const { request, currentUser } = this.props;
-    const foundContext = currentUser.notifications.find(notification => {
+    const foundContext = currentUser.notifications.find((notification) => {
       return notification.contextId === request._id;
     });
 
@@ -349,15 +349,17 @@ class Request extends Component {
                 height: 44,
                 width: '100%',
                 bottom: 0,
-                zIndex: 9
+                zIndex: 9,
               }}
             >
               <Flex style={{ width: '100%' }} justify="center">
                 <FlexItem>
-                  <form onSubmit={event => this.sendMessage(event)}>
+                  <form onSubmit={(event) => this.sendMessage(event)}>
                     <InputItem
                       value={messageInput}
-                      onChange={value => this.setState({ messageInput: value })}
+                      onChange={(value) =>
+                        this.setState({ messageInput: value })
+                      }
                       placeholder="enter message"
                       onFocus={() => this.setState({ isAccordionOpen: false })}
                       style={{ fontSize: 14 }}
@@ -369,7 +371,7 @@ class Request extends Component {
                     flexGrow: 0,
                     flexBasis: 48,
                     display: 'flex',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
                   }}
                 >
                   <IoMdSend size={24} onClick={() => this.sendMessage()} />
@@ -383,7 +385,7 @@ class Request extends Component {
   }
 }
 
-export default RequestContainer = withTracker(props => {
+export default RequestContainer = withTracker((props) => {
   const currentUser = Meteor.user();
   const requestId = props.match.params.id;
 
@@ -399,7 +401,7 @@ export default RequestContainer = withTracker(props => {
     currentUser,
     request,
     messages,
-    isLoading
+    isLoading,
   };
 })(Request);
 

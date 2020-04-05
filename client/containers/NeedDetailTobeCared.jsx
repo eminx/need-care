@@ -7,10 +7,10 @@ import { NavBar, Icon, WingBlank, WhiteSpace } from 'antd-mobile';
 import { BookCard } from '../reusables/BookCard';
 import { errorDialog, successDialog } from '../functions';
 
-class BookDetailTobeRequested extends Component {
+class NeedDetailTobeCared extends Component {
   state = {
     requestSuccess: false,
-    backToDiscover: false
+    backToDiscover: false,
   };
 
   makeRequest = () => {
@@ -23,7 +23,7 @@ class BookDetailTobeRequested extends Component {
       } else {
         successDialog('Your request is successfully sent!');
         this.setState({
-          requestSuccess: respond
+          requestSuccess: respond,
         });
       }
     });
@@ -75,7 +75,7 @@ class BookDetailTobeRequested extends Component {
   }
 }
 
-export default BookDetailTobeRequestedContainer = withTracker(props => {
+export default NeedDetailTobeCaredContainer = withTracker((props) => {
   const currentUser = Meteor.user();
   const bookId = props.match.params.id;
 
@@ -87,6 +87,6 @@ export default BookDetailTobeRequestedContainer = withTracker(props => {
   return {
     currentUser,
     book,
-    isLoading
+    isLoading,
   };
-})(BookDetailTobeRequested);
+})(NeedDetailTobeCared);

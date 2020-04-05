@@ -6,9 +6,9 @@ import allLanguages from '../allLanguages';
 
 const Item = List.Item;
 
-class EditBookUI extends Component {
+class EditNeedUI extends Component {
   onSubmit = () => {
-    this.props.form.validateFields({ force: true }, error => {
+    this.props.form.validateFields({ force: true }, (error) => {
       if (!error) {
         const values = this.props.form.getFieldsValue();
         this.props.onSubmit(values);
@@ -44,9 +44,9 @@ class EditBookUI extends Component {
             {...getFieldProps('title', {
               rules: [
                 { required: true, message: 'please enter the book title' },
-                { validator: this.validateAccount }
+                { validator: this.validateAccount },
               ],
-              initialValue: book ? book.b_title : null
+              initialValue: book ? book.b_title : null,
             })}
             clear
             error={!!getFieldError('title')}
@@ -62,9 +62,9 @@ class EditBookUI extends Component {
             {...getFieldProps('author', {
               rules: [
                 { required: true, message: 'please enter the book title' },
-                { validator: this.validateAccount }
+                { validator: this.validateAccount },
               ],
-              initialValue: book ? book.b_author : null
+              initialValue: book ? book.b_author : null,
             })}
             clear
             error={!!getFieldError('author')}
@@ -75,7 +75,7 @@ class EditBookUI extends Component {
 
           <InputItem
             {...getFieldProps('isbn', {
-              initialValue: book && book.b_ISBN && book.b_ISBN.identifier
+              initialValue: book && book.b_ISBN && book.b_ISBN.identifier,
             })}
             clear
             error={!!getFieldError('isbn')}
@@ -97,7 +97,7 @@ class EditBookUI extends Component {
 
           <TextareaItem
             {...getFieldProps('description', {
-              initialValue: book && book.b_description
+              initialValue: book && book.b_description,
             })}
             title="description"
             placeholder="description"
@@ -116,6 +116,6 @@ class EditBookUI extends Component {
   }
 }
 
-const EditBook = createForm()(EditBookUI);
+const EditNeed = createForm()(EditNeedUI);
 
-export default EditBook;
+export default EditNeed;

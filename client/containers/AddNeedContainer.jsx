@@ -8,10 +8,10 @@ import {
   NavBar,
   SearchBar,
   List,
-  Modal
+  Modal,
 } from 'antd-mobile';
 
-import BookDetailTobeAdded from './BookDetailTobeAdded';
+import NeedDetailTobeAdded from './NeedDetailTobeAdded';
 import { successDialog, errorDialog, parseUrlForSSL } from '../functions';
 import { Redirect } from 'react-router-dom';
 
@@ -20,14 +20,14 @@ const googleApi = 'https://www.googleapis.com/books/v1/volumes?q=';
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
 
-class AddBook extends Component {
+class AddNeed extends Component {
   state = {
     isLoading: false,
     searchResults: [],
     searchbarInput: '',
     searchbarFocused: false,
     bookInDetail: null,
-    backToShelf: false
+    backToShelf: false,
   };
 
   componentDidMount() {
@@ -40,28 +40,28 @@ class AddBook extends Component {
 
   searchbarSearch = () => {
     this.setState({
-      isLoading: true
+      isLoading: true,
     });
     const keyword = this.state.searchbarInput;
     fetch(googleApi + keyword)
-      .then(results => {
+      .then((results) => {
         return results.json();
       })
-      .then(parsedResults => {
+      .then((parsedResults) => {
         this.setState({
           isLoading: false,
-          searchResults: parsedResults.items
+          searchResults: parsedResults.items,
         });
       });
   };
 
-  viewBookInDetail = result => {
+  viewBookInDetail = (result) => {
     this.setState({
-      bookInDetail: result
+      bookInDetail: result,
     });
   };
 
-  insertBook = book => {
+  insertBook = (book) => {
     // if (this.alreadyOwnsBook(book)) {
     //   errorDialog('You already own this book');
     //   return;
@@ -79,18 +79,18 @@ class AddBook extends Component {
     });
   };
 
-  alreadyOwnsBook = book => {
+  alreadyOwnsBook = (book) => {
     const { currentUser } = this.props;
     return Books.findOne({
       b_title: book.b_title,
-      added_by: currentUser._id
+      added_by: currentUser._id,
     });
   };
 
   closeModal = () => {
     this.setState(
       {
-        bookInDetail: null
+        bookInDetail: null,
       },
       () => {
         this.autoFocusSearchBar();
@@ -114,7 +114,7 @@ class AddBook extends Component {
       searchResults,
       searchbarInput,
       isLoading,
-      bookInDetail
+      bookInDetail,
     } = this.state;
     return (
       <div>
@@ -123,7 +123,7 @@ class AddBook extends Component {
           leftContent={<Icon type="left" />}
           onLeftClick={() =>
             this.setState({
-              backToShelf: true
+              backToShelf: true,
             })
           }
         >
@@ -132,10 +132,10 @@ class AddBook extends Component {
         <SearchBar
           placeholder="title, author, ISBN etc"
           value={searchbarInput}
-          onChange={value => this.setState({ searchbarInput: value })}
+          onChange={(value) => this.setState({ searchbarInput: value })}
           onSubmit={() => this.searchbarSearch()}
           cancelText="Cancel"
-          ref={ref => (this.searchBar = ref)}
+          ref={(ref) => (this.searchBar = ref)}
         />
 
         {isLoading && (
@@ -143,7 +143,7 @@ class AddBook extends Component {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              marginTop: 50
+              marginTop: 50,
             }}
           >
             <ActivityIndicator text="Loading..." />
@@ -153,7 +153,7 @@ class AddBook extends Component {
         <List>
           {searchResults &&
             searchResults.length > 0 &&
-            searchResults.map(result => (
+            searchResults.map((result) => (
               <ListItem
                 key={result.id || result.volumeInfo.title}
                 align="top"
@@ -177,7 +177,7 @@ class AddBook extends Component {
                 <b>{result.volumeInfo.title}</b>
                 <Brief>
                   {result.volumeInfo.authors &&
-                    result.volumeInfo.authors.map(author => (
+                    result.volumeInfo.authors.map((author) => (
                       <span key={author}>{author}</span>
                     ))}
                 </Brief>
@@ -191,7 +191,7 @@ class AddBook extends Component {
           onClose={() => this.setState({ bookInDetail: null })}
           title="Do you own a copy?"
         >
-          <BookDetailTobeAdded
+          <NeedDetailTobeAdded
             bookInfo={bookInDetail}
             insertBook={this.insertBook}
           />
@@ -201,10 +201,10 @@ class AddBook extends Component {
   }
 }
 
-export default AddBookContainer = withTracker(props => {
+export default AddNeedContainer = withTracker((props) => {
   const meSub = Meteor.subscribe('me');
   const currentUser = Meteor.user();
   return {
-    currentUser
+    currentUser,
   };
-})(AddBook);
+})(AddNeed);

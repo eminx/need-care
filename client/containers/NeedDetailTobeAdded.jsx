@@ -14,10 +14,10 @@ import {
   Media,
   MediaLeft,
   MediaContent,
-  Content
+  Content,
 } from 'bloomer';
 
-const myImg = src => <img src={src} alt="" width={48} height={48} />;
+const myImg = (src) => <img src={src} alt="" width={48} height={48} />;
 
 const parseAuthors = ({ authors }) => {
   authors ? (
@@ -31,7 +31,7 @@ const parseAuthors = ({ authors }) => {
   );
 };
 
-class BookDetailTobeAdded extends PureComponent {
+class NeedDetailTobeAdded extends PureComponent {
   render() {
     const { currentUser, bookInfo } = this.props;
     const volumeInfo = bookInfo && bookInfo.volumeInfo;
@@ -93,9 +93,9 @@ const BookCard = ({ volumeInfo }) => (
   </Card>
 );
 
-export default BookDetailTobeAddedContainer = withTracker(props => {
+export default NeedDetailTobeAddedContainer = withTracker((props) => {
   const currentUser = Meteor.user();
   return {
-    currentUser
+    currentUser,
   };
-})(BookDetailTobeAdded);
+})(NeedDetailTobeAdded);

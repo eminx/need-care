@@ -4,29 +4,29 @@ import React, { Fragment, PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { WhiteSpace, WingBlank, Modal, NavBar, Icon } from 'antd-mobile';
 
-import { BookCard } from '../reusables/BookCard';
-import EditBook from '../reusables/EditBook';
+import { BookCard } from '../reusables/BookCardNext';
+import EditNeed from '../reusables/EditNeed';
 import { errorDialog, successDialog } from '../functions';
 
-class MyBook extends PureComponent {
+class MyNeed extends PureComponent {
   state = {
     isEditDialogOpen: false,
-    backToBooks: false
+    backToBooks: false,
   };
 
   openEditDialog = () => {
     this.setState({
-      isEditDialogOpen: true
+      isEditDialogOpen: true,
     });
   };
 
   closeEditDialog = () => {
     this.setState({
-      isEditDialogOpen: false
+      isEditDialogOpen: false,
     });
   };
 
-  updateBook = values => {
+  updateBook = (values) => {
     const { book } = this.props;
 
     if (values.language) {
@@ -85,14 +85,14 @@ class MyBook extends PureComponent {
           onClose={this.closeEditDialog}
           title="Edit Book"
         >
-          <EditBook book={book} onSubmit={this.updateBook} />
+          <EditNeed book={book} onSubmit={this.updateBook} />
         </Modal>
       </div>
     );
   }
 }
 
-export default MyBookContainer = withTracker(props => {
+export default MyNeedContainer = withTracker((props) => {
   const currentUser = Meteor.user();
   const bookId = props.match.params.id;
   const bookSub = Meteor.subscribe('singleBook', bookId);
@@ -102,6 +102,6 @@ export default MyBookContainer = withTracker(props => {
   return {
     currentUser,
     book,
-    isLoading
+    isLoading,
   };
-})(MyBook);
+})(MyNeed);

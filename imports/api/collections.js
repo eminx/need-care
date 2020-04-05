@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 
-Books = new Mongo.Collection('books');
-Requests = new Mongo.Collection('requests');
+Needs = new Mongo.Collection('needs');
+Cares = new Mongo.Collection('cares');
 Messages = new Mongo.Collection('messages');
 
-export { Books, Requests, Messages };
+export { Needs, Cares, Messages };

@@ -9,12 +9,12 @@ const Brief = ListItem.Brief;
 
 class Find extends Component {
   state = {
-    redirectToBookDetail: null
+    redirectToBookDetail: null,
   };
 
-  viewBookInDetail = suggestedBookId => {
+  viewBookInDetail = (suggestedBookId) => {
     this.setState({
-      redirectToBookDetail: suggestedBookId
+      redirectToBookDetail: suggestedBookId,
     });
   };
 
@@ -36,7 +36,7 @@ class Find extends Component {
         <List renderHeader={() => 'Suggested books for you'}>
           {othersBooks &&
             othersBooks.length > 0 &&
-            othersBooks.map(suggestedBook => (
+            othersBooks.map((suggestedBook) => (
               <ListItem
                 key={suggestedBook._id}
                 align="top"
@@ -60,13 +60,13 @@ class Find extends Component {
   }
 }
 
-export default FindContainer = withTracker(props => {
+export default FindContainer = withTracker((props) => {
   const currentUser = Meteor.user();
   Meteor.subscribe('othersBooks');
-  const othersBooks = currentUser && Books.find().fetch();
+  const othersBooks = currentUser && Needs.find().fetch();
 
   return {
     currentUser,
-    othersBooks
+    othersBooks,
   };
 })(Find);
